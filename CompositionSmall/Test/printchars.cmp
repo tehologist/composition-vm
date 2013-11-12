@@ -3,6 +3,10 @@
    (1) ADD
 RETURN
 
+:TX
+    (8) EXT
+RETURN
+
 :DIP
     SWAP PUSH DO POP
 RETURN
@@ -29,7 +33,7 @@ RETURN
 :PRINTCHARS
     (2DUP) DO
     LT ZRETURN
-    OVER PUTC
+    OVER (TX) DO
     (1+) (DIP) DO
     (PRINTCHARS) GOTO
     :PRINTCHARS_DO
@@ -42,7 +46,7 @@ RETURN
 RETURN
 
 :CR
-    (10) PUTC
+    (10) (TX) DO
 RETURN
     
 :MAIN

@@ -27,13 +27,58 @@ namespace CompositionSmall
 			memory = new int[memsize];
 		}
 		
+		public void External()
+		{
+			switch(dataStack.Pop())
+			{
+				case 1:
+					dataStack.Push(Console.WindowHeight);
+					break;
+				case 2:
+					dataStack.Push(Console.WindowWidth);
+					break;
+				case 3:
+					Console.ForegroundColor = (ConsoleColor)dataStack.Pop();
+					break;
+				case 4:
+					Console.BackgroundColor = (ConsoleColor)dataStack.Pop();
+					break;
+				case 5:
+					dataStack.Push(Console.KeyAvailable ? -1 : 0);
+					break;
+				case 6:
+					dataStack.Push((int)Console.ReadKey().KeyChar);
+					break;
+				case 7:
+					TOS = dataStack.Pop();
+					SOS = dataStack.Pop();
+					Console.SetCursorPosition(SOS, TOS);
+					break;
+				case 8:
+					Console.Write((char)dataStack.Pop());
+					break;
+				case 9:
+					Console.Clear();
+					break;
+				case 10:
+					Console.CursorVisible = dataStack.Pop() == -1 ? true : false;
+					break;
+				default:
+					break;
+			}
+		}
+		
 		public enum OPCODES { NOP,RETURN,ZRETURN,GOTO,IF,DO,LIT,LT,EQ,GT,AND,
 			OR,XOR,NOT,ADD,SUB,MULT,DIVMOD,SHL,SHR,LOAD,STORE,PUSH,POP,DROP,
-			DUP,SWAP,OVER,ROT,PUTC,GETC,HLT};
+			DUP,SWAP,OVER,ROT,EXT,HLT};
 		
 		public int DO_OP(OPCODES op) {
 			switch(op) {
 				case OPCODES.NOP:
+					PC++;
+					break;
+				case OPCODES.EXT:
+					External();
 					PC++;
 					break;
 				case OPCODES.LIT:
@@ -172,15 +217,6 @@ namespace CompositionSmall
 					break;
 				case OPCODES.HLT:
 					PC = -1;
-					break;
-				case OPCODES.PUTC:
-					TOS = dataStack.Pop();
-					Console.Out.Write((char)TOS);
-					PC++;
-					break;
-				case OPCODES.GETC:
-					dataStack.Push(Console.In.Read());
-					PC++;
 					break;
 				case OPCODES.IF:
 					TOS = dataStack.Pop();

@@ -1,11 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: tthoma13
- * Date: 11/10/2013
- * Time: 2:55 PM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
+﻿
 using System;
 
 namespace CompositionSmall

@@ -38,13 +38,12 @@ namespace CompositionSmall
 			ops.Add("SWAP",CVM.OPCODES.SWAP);
 			ops.Add("OVER",CVM.OPCODES.OVER);
 			ops.Add("ROT",CVM.OPCODES.ROT);
-			ops.Add("GETC",CVM.OPCODES.GETC);
-			ops.Add("PUTC",CVM.OPCODES.PUTC);
 			ops.Add("DO",CVM.OPCODES.DO);
 			ops.Add("RETURN",CVM.OPCODES.RETURN);
 			ops.Add("ZRETURN",CVM.OPCODES.ZRETURN);
 			ops.Add("GOTO",CVM.OPCODES.GOTO);
 			ops.Add("IF",CVM.OPCODES.IF);
+			ops.Add("EXT",CVM.OPCODES.EXT);
 		}
 		
 		public int ParseCode(int loc, string code)
