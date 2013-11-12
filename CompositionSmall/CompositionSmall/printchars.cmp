@@ -1,0 +1,59 @@
+
+:1+
+   (1) ADD
+RETURN
+
+:DIP
+    SWAP PUSH DO POP
+RETURN
+
+:<
+    OVER LT
+RETURN
+
+:>
+   OVER GT
+RETURN
+
+:2DUP
+    OVER OVER
+RETURN
+
+:WITHIN
+    (<) (DIP) DO
+    SWAP 
+    (>) (DIP) DO
+    EQ
+RETURN
+
+:PRINTCHARS
+    (2DUP) DO
+    LT ZRETURN
+    OVER PUTC
+    (1+) (DIP) DO
+    (PRINTCHARS) GOTO
+    :PRINTCHARS_DO
+        (PRINTCHARS) DO
+        DROP DROP
+RETURN 
+
+:DONTPRINT
+    DROP DROP
+RETURN
+
+:CR
+    (10) PUTC
+RETURN
+    
+:MAIN
+    (100) PUSH
+    :LOOP
+        (65) (31) (91) DUP 
+        (WITHIN) (DIP) DO
+        SWAP
+        (PRINTCHARS_DO) (DONTPRINT) IF DO 
+        (CR) DO 
+        POP (1) SUB DUP ZRETURN
+        PUSH
+    (LOOP) GOTO
+RETURN
