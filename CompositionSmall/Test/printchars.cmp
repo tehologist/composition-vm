@@ -24,20 +24,20 @@ RETURN
 RETURN
 
 :WITHIN
-    (<) (DIP) DO
+    (<) DIP
     SWAP 
-    (>) (DIP) DO
+    (>) DIP
     EQ
 RETURN
 
 :PRINTCHARS
-    (2DUP) DO
+    2DUP
     LT ZRETURN
-    OVER (TX) DO
-    (1+) (DIP) DO
+    OVER TX
+    (1+) DIP
     (PRINTCHARS) GOTO
     :PRINTCHARS_DO
-        (PRINTCHARS) DO
+        PRINTCHARS
         DROP DROP
 RETURN 
 
@@ -46,17 +46,17 @@ RETURN
 RETURN
 
 :CR
-    (10) (TX) DO
+    (10) TX
 RETURN
     
 :MAIN
     (100) PUSH
     :LOOP
         (65) (31) (91) DUP 
-        (WITHIN) (DIP) DO
+        (WITHIN) DIP 
         SWAP
         (PRINTCHARS_DO) (DONTPRINT) IF DO 
-        (CR) DO 
+        CR 
         POP (1) SUB DUP ZRETURN
         PUSH
     (LOOP) GOTO

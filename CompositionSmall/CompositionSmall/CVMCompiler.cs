@@ -51,19 +51,29 @@ namespace CompositionSmall
 			string[] tokens = 
 				code.Replace("\n"," ").Replace("\r"," ").Split(
 					new char[]{' '});
+
 			foreach(var a in tokens) {
+				bool asLit = false;
 				var b = a;
 				if(b == "")
 					continue;
 				if(b[0] == '(') {
 					b = a.Replace("(","").Replace(")","");
 					loc = CompileOP(loc,CVM.OPCODES.LIT);
+					asLit = true;
 				}
 				if(ops.ContainsKey(b.ToUpper())) {
 				   	loc = CompileOP(loc,ops[b.ToUpper()]);
 				   }
 				else if(labels.ContainsKey(b.ToUpper())) {
-					loc = CompileLIT(loc, labels[b.ToUpper()]);
+					if(asLit==true)
+					    loc = CompileLIT(loc, labels[b.ToUpper()]);
+					else
+					{
+						loc = CompileOP(loc,CVM.OPCODES.LIT);
+						loc = CompileLIT(loc, labels[b.ToUpper()]);
+					    loc = CompileOP(loc,CVM.OPCODES.DO);
+					}
 				   }
 				else if(b[0] == ':') {
 					labels.Add(b.Replace(":",""),loc);
