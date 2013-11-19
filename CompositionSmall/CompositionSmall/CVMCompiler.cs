@@ -55,6 +55,10 @@ namespace CompositionSmall
 			foreach(var a in tokens) {
 				bool asLit = false;
 				var b = a;
+				if(b.Contains("0;"))
+					b = "ZRETURN";
+				else if(b.Contains(";"))
+					b = "RETURN";
 				if(b == "")
 					continue;
 				if(b[0] == '(') {
@@ -63,11 +67,11 @@ namespace CompositionSmall
 					asLit = true;
 				}
 				if(ops.ContainsKey(b.ToUpper())) {
-				   	loc = CompileOP(loc,ops[b.ToUpper()]);
+					loc = CompileOP(loc,ops[b.ToUpper()]);
 				   }
 				else if(labels.ContainsKey(b.ToUpper())) {
 					if(asLit==true)
-					    loc = CompileLIT(loc, labels[b.ToUpper()]);
+						loc = CompileLIT(loc, labels[b.ToUpper()]);
 					else
 					{
 						loc = CompileOP(loc,CVM.OPCODES.LIT);

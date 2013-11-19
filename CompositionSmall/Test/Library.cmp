@@ -1,0 +1,34 @@
+:[DROP] DROP ; 
+:[DUP] DUP ; 
+:[SWAP] SWAP ; 
+:[OVER] OVER ; 
+:[ROT] ROT ; 
+:[POP] POP ; 
+:[PUSH] PUSH ; 
+:[NOT] NOT ; 
+:+ ADD ; 
+:- SUB ; 
+:* MULT ; 
+:/ DIVMOD DROP ; 
+:% DIVMOD SWAP DROP ; 
+:<< SHL ; 
+:>> SHR ; 
+:@ LOAD ; 
+:! STORE ; 
+:2DUP OVER OVER ; 
+:2DROP DROP DROP ; 
+:-ROT ROT ROT ; 
+:1+ (1) + ; 
+:1- (1) - ; 
+:NEGATE NOT 1+ ; 
+:DIP SWAP PUSH DO POP ; 
+:DDIP DUP PUSH DIP POP ; 
+:TX (8) EXT ; 
+:CR (10) TX ; 
+:< OVER GT ; 
+:> OVER LT ; 
+:WITHIN (>) DIP SWAP (<) DIP EQ ; 
+:NOTHING NOP ; 
+:[TIMES] DDIP (1-) DIP OVER 0; ([TIMES]) GOTO
+:TIMES [TIMES] 2DROP ;
+:WHILE OVER PUSH SWAP DIP POP -ROT SWAP 0; DDIP (WHILE) GOTO

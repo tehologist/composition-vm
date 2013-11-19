@@ -15,7 +15,9 @@ namespace CompositionSmall
 			if(config == 0) {
 				CVMCompiler compiler = new CVMCompiler();
 				string codeMain = System.IO.File.OpenText(args[0]).ReadToEnd();
-				compiler.image[4] = compiler.ParseCode(5,codeMain);
+				string library = System.IO.File.OpenText("Library.cmp").ReadToEnd();
+				int position = compiler.ParseCode(5,library);
+				compiler.image[4] = compiler.ParseCode(position,codeMain);
 				string codeBoot = "(MAIN) DO HLT";
 				compiler.ParseCode(0,codeBoot);
 				var binWriter = new System.IO.BinaryWriter(
